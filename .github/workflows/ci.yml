@@ -1,0 +1,35 @@
+name: CI Code Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  quality_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false
+
+      - name: Install Dependencies
+        run: poetry install --no-interaction --no-ansi --no-root
+
+      - name: Check Formatting (Black)
+        run: poetry run black --check .
+
+      - name: Check Imports (Isort)
+        run: poetry run isort --check-only .
+
+      - name: Test Docker Build
+        run: docker build . 

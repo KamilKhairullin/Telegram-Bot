@@ -1,6 +1,8 @@
 services:
   bot:
-    build: .
+    build:
+      context: ./services/bot
+      dockerfile: Dockerfile
     restart: always
     env_file:
       - .env

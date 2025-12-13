@@ -19,3 +19,8 @@ class ReputationResponse(BaseModel):
     chat_id: int
     new_score: int
     model_config = ConfigDict(from_attributes=True)
+
+class UserScore(BaseModel):
+    full_name: str
+    username: str | None
+    score: int

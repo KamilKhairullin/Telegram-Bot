@@ -5,7 +5,7 @@ from sqlalchemy import select
 
 from .database import engine, Base, get_db
 from .models import User, Chat, Reputation
-from .schemas import ReputationUpdate, ReputationResponse
+from .schemas import ReputationUpdate, ReputationResponse, UserScore
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -80,3 +80,35 @@ async def vote_user(data: ReputationUpdate, db: AsyncSession = Depends(get_db)):
         chat_id=reputation.chat_id,
         new_score=reputation.score
     )
+
+@app.get("/reputation/{chat_id}/top", response_model=list[UserScore])
+async def get_top_users(chat_id: int, limit: int = 10, db: AsyncSession = Depends(get_db)):
+    """Топ-10 пользователей чата"""
+    query = (
+        select(User.full_name, User.username, Reputation.score)
+        .join(User, User.telegram_id == Reputation.user_id)
+        .where(Reputation.chat_id == chat_id)
+        .order_by(desc(Reputation.score))
+        .limit(limit)
+    )
+    result = await db.execute(query)
+    return [
+        UserScore(full_name=row.full_name, username=row.username, score=row.score) 
+        for row in result
+    ]
+
+@app.get("/reputation/{chat_id}/{user_id}", response_model=UserScore)
+async def get_user_reputation(chat_id: int, user_id: int, db: AsyncSession = Depends(get_db)):
+    """Рейтинг конкретного юзера"""
+    query = (
+        select(User.full_name, User.username, Reputation.score)
+        .join(User, User.telegram_id == Reputation.user_id)
+        .where(Reputation.chat_id == chat_id, Reputation.user_id == user_id)
+    )
+    result = await db.execute(query)
+    row = result.first()
+    
+    if not row:
+         raise HTTPException(status_code=404, detail="User reputation not found")
+
+    return UserScore(full_name=row.full_name, username=row.username, score=row.score)

@@ -1,7 +1,7 @@
 from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import Message
-from src.client import DBApiClient
+from src.db_client import DBApiClient
 
 router = Router()
 api_client = DBApiClient()
@@ -42,6 +42,8 @@ async def reputation_change_handler(message: Message):
             )
         
         await message.reply(text)
+    else:
+        await message.reply("Ошибка. Бот обосрался..")
 
 
 @router.message(Command("rating"))
@@ -69,3 +71,7 @@ async def show_rating_handler(message: Message):
         text += f"{emoji} {user['full_name']}: {user['score']}\n"
 
     await message.reply(text)
+
+@router.message()
+async def catch_all(message: Message):
+    print(f"DEBUG: I got message: '{message.text}'")

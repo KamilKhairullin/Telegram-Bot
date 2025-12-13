@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "db-api"
+version = "0.1.0"
+description = "Microservice for Database access"
+authors = ["Admin"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.0"
+uvicorn = "^0.27.0"
+sqlalchemy = "^2.0.25"
+asyncpg = "^0.29.0"
+pydantic-settings = "^2.1.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.0"
+isort = "^5.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

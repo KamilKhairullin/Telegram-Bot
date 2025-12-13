@@ -10,7 +10,23 @@ services:
       resources:
         limits:
           cpus: '0.50' 
+          memory: 1024M
+        reservations:
+          cpus: '0.15'
+          memory: 256M
+  database_api:
+    build:
+      context: ./services/database-api
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    expose:
+      - "8000"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.30'
           memory: 512M
         reservations:
-          cpus: '0.10'
-          memory: 128M
+          cpus: '0.15'
+          memory: 256M

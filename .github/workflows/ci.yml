@@ -7,6 +7,10 @@ on:
 jobs:
   quality_check:
     runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./services/bot
 
     steps:
       - name: Checkout code
@@ -21,6 +25,7 @@ jobs:
         run: |
           pip install poetry
           poetry config virtualenvs.create false
+        working-directory: . 
 
       - name: Install Dependencies
         run: poetry install --no-interaction --no-ansi --no-root
@@ -32,4 +37,5 @@ jobs:
         run: poetry run isort --check-only .
 
       - name: Test Docker Build
-        run: docker build . 
+        working-directory: .
+        run: docker compose build

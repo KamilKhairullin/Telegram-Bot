@@ -14,9 +14,9 @@ services:
         reservations:
           cpus: '0.15'
           memory: 256M
-  database_api:
+  db_api:
     build:
-      context: ./services/database-api
+      context: ./services/db_api
       dockerfile: Dockerfile
     restart: always
     env_file: .env

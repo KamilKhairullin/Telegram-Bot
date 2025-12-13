@@ -7,7 +7,7 @@ BREW_PYTHON := python@$(PYTHON_VERSION)
 
 # Пути к микросервисам
 BOT_DIR := services/bot
-API_DIR := services/database-api
+API_DIR := services/db_api
 
 help:
 	@echo ""

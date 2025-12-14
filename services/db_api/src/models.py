@@ -48,7 +48,7 @@ class Reputation(Base):
         ForeignKey("chats.telegram_id", ondelete="CASCADE")
     )
 
-    score: Mapped[int] = mapped_column(default=0)  # Сам рейтинг
+    score: Mapped[int] = mapped_column(default=0)
 
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), onupdate=func.now(), server_default=func.now()

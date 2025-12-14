@@ -10,7 +10,7 @@ ENV_FILE_PATH = ROOT_DIR / ".env"
 class Settings(BaseSettings):
     BOT_TOKEN: SecretStr
 
-    DB_API_URL: str = "http://localhost:8000"
+    DB_API_URL: str = "http://db_api:8000"
 
     model_config = SettingsConfigDict(
         env_file=ENV_FILE_PATH, env_file_encoding="utf-8", extra="ignore"

@@ -1,20 +1,27 @@
 import logging
+
 import aiohttp
-from aiogram.types import User, Chat
+from aiogram.types import Chat, User
+
 from src.config import config
+
 
 class DBApiClient:
     def __init__(self):
         self.base_url = config.DB_API_URL
         self.logger = logging.getLogger("api_client")
 
-    async def update_reputation(self, target_user: User, chat: Chat, amount: int) -> int | None:
-        # ... (ТОТ ЖЕ КОД, ЧТО БЫЛ РАНЬШЕ) ...
-        # (Оставь метод update_reputation без изменений)
+    async def update_reputation(
+        self, target_user: User, chat: Chat, amount: int
+    ) -> int | None:
         payload = {
-            "user": {"telegram_id": target_user.id, "username": target_user.username, "full_name": target_user.full_name},
+            "user": {
+                "telegram_id": target_user.id,
+                "username": target_user.username,
+                "full_name": target_user.full_name,
+            },
             "chat": {"telegram_id": chat.id, "title": chat.title or "Private Chat"},
-            "amount": amount
+            "amount": amount,
         }
         endpoint = f"{self.base_url}/reputation/vote"
         try:
@@ -26,8 +33,6 @@ class DBApiClient:
         except Exception as e:
             self.logger.error(f"Failed to vote: {e}")
             return None
-
-    # === НОВЫЕ МЕТОДЫ ===
 
     async def get_top_users(self, chat_id: int) -> list[dict]:
         endpoint = f"{self.base_url}/reputation/{chat_id}/top"

@@ -24,7 +24,7 @@ async def handle_plus(message: Message) -> None:
         target_user=reply.from_user, chat=message.chat, amount=1
     )
 
-    if new_score == 'COOLDOWN':
+    if new_score == "COOLDOWN":
         await message.reply(texts.COOLDOWN_MESSAGE)
         return
 
@@ -51,7 +51,7 @@ async def handle_minus(message: Message) -> None:
         target_user=reply.from_user, chat=message.chat, amount=-1
     )
 
-    if new_score == 'COOLDOWN':
+    if new_score == "COOLDOWN":
         await message.reply(texts.COOLDOWN_MESSAGE)
         return
 

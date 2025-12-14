@@ -56,20 +56,16 @@ run-api:
 
 format:
 	@echo "🎨 Formatting BOT..."
-	@cd $(BOT_DIR) && poetry run isort .
 	@cd $(BOT_DIR) && poetry run black .
 	@echo "🎨 Formatting API..."
-	@cd $(API_DIR) && poetry run isort .
 	@cd $(API_DIR) && poetry run black .
 
 formater: format
 
 lint:
 	@echo "🔍 Linting BOT..."
-	@cd $(BOT_DIR) && poetry run isort --check-only .
 	@cd $(BOT_DIR) && poetry run black --check .
 	@echo "🔍 Linting API..."
-	@cd $(API_DIR) && poetry run isort --check-only .
 	@cd $(API_DIR) && poetry run black --check .
 
 # === DOCKER ===

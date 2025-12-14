@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from src.config import config
 from src.handlers.reputation.reputation import router
 
+
 async def main():
     logging.basicConfig(level=logging.INFO)
 

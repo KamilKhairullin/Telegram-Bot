@@ -16,8 +16,10 @@ async def handle_plus(message: Message) -> None:
     if not reply:
         return
     if reply.from_user.is_bot:
+        await message.reply(texts.CHANGE_RATING_TO_BOT)
         return
     if reply.from_user.id == message.from_user.id:
+        await message.reply(texts.CHANGE_RATING_TO_SELF)
         return
 
     new_score = await api_client.update_reputation(
@@ -43,8 +45,10 @@ async def handle_minus(message: Message) -> None:
     if not reply:
         return
     if reply.from_user.is_bot:
+        await message.reply(texts.CHANGE_RATING_TO_BOT)
         return
     if reply.from_user.id == message.from_user.id:
+        await message.reply(texts.CHANGE_RATING_TO_SELF)
         return
 
     new_score = await api_client.update_reputation(

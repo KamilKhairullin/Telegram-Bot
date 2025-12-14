@@ -13,6 +13,8 @@ TOP_USERS_HEADER: Final = "🏆 Топ пользователей по рейт�
 COOLDOWN_MESSAGE: Final = (
     "⏳ Эй, полегче! Менять рейтинг можно не чаще чем раз в минуту."
 )
+CHANGE_RATING_TO_BOT = "Рейтинг можно менять только людям!"
+CHANGE_RATING_TO_SELF = f"Нельзя менять рейтинг самому себе {EMOJI_DISLIKE}"
 
 
 def format_reputation_increased(username: str, score: int) -> str:

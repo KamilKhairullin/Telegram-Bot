@@ -24,6 +24,10 @@ async def handle_plus(message: Message) -> None:
         target_user=reply.from_user, chat=message.chat, amount=1
     )
 
+    if new_score == "COOLDOWN":
+        await message.reply(texts.COOLDOWN_MESSAGE)
+        return
+
     if new_score is not None:
         text = texts.format_reputation_increased(
             username=reply.from_user.full_name, score=new_score
@@ -46,6 +50,10 @@ async def handle_minus(message: Message) -> None:
     new_score = await api_client.update_reputation(
         target_user=reply.from_user, chat=message.chat, amount=-1
     )
+
+    if new_score == "COOLDOWN":
+        await message.reply(texts.COOLDOWN_MESSAGE)
+        return
 
     if new_score is not None:
         text = texts.format_reputation_decreased(

@@ -7,9 +7,12 @@ EMOJI_SILVER: Final = "🥈"
 EMOJI_BRONZE: Final = "🥉"
 EMOJI_TROPHY: Final = "🏆"
 
-ERROR_GENERAL: Final = "Ошибка. Бот обосрался.."
+ERROR_GENERAL: Final = "Ошибка. Бот сломался.."
 NO_USERS_WITH_RATING: Final = "Пока нет пользователей с рейтингом."
 TOP_USERS_HEADER: Final = "🏆 Топ пользователей по рейтингу:\n\n"
+COOLDOWN_MESSAGE: Final = (
+    "⏳ Эй, полегче! Менять рейтинг можно не чаще чем раз в минуту."
+)
 
 
 def format_reputation_increased(username: str, score: int) -> str:

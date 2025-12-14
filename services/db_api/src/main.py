@@ -1,7 +1,8 @@
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 
 from fastapi import Depends, FastAPI, HTTPException
-from sqlalchemy import select, desc
+from sqlalchemy import desc, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from .database import Base, engine, get_db
@@ -73,6 +74,15 @@ async def vote_user(data: ReputationUpdate, db: AsyncSession = Depends(get_db)):
             user_id=user.telegram_id, chat_id=chat.telegram_id, score=0
         )
         db.add(reputation)
+    else:
+        if reputation.updated_at:
+            now = datetime.now(timezone.utc)
+            delta = now - reputation.updated_at
+
+            if delta.total_seconds() < 60:
+                raise HTTPException(
+                    status_code=429, detail="Cooldown: please wait before voting again."
+                )
 
     reputation.score += data.amount
 

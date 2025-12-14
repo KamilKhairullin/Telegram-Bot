@@ -27,6 +27,8 @@ class DBApiClient:
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.post(endpoint, json=payload) as response:
+                    if response.status == 429:
+                        return "COOLDOWN"
                     response.raise_for_status()
                     data = await response.json()
                     return data["new_score"]

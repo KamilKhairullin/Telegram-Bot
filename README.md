@@ -1,5 +1,3 @@
-# SHPEKBot
-
 # SHPEKBot 🤖
 
 Telegram Bot built with Python 3.11, Aiogram 3.x, and Docker.

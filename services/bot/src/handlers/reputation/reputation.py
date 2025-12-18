@@ -39,7 +39,7 @@ async def handle_plus(message: Message) -> None:
         await message.reply(texts.ERROR_GENERAL)
 
 
-@router.message(F.text.regexp(r"^\-+$"))
+@router.message(F.text.regexp(r"^[\-–—―]+$"))
 async def handle_minus(message: Message) -> None:
     reply = message.reply_to_message
     if not reply:
